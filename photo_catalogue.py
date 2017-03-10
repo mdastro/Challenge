@@ -10,40 +10,48 @@
 """
 
 import numpy as np
+import pandas as pd
 
 # ======================================================================================================================
 # Main thread
 
 if __name__ == '__main__':
 
-    my_data_z021   = '/home/mldantas/Dropbox/DoutoradoIAG/Challenge/total_file_z021.dat'
-    my_data_z050   = '/home/mldantas/Dropbox/DoutoradoIAG/Challenge/total_file_z050.dat'
-    my_data_z090   = '/home/mldantas/Dropbox/DoutoradoIAG/Challenge/total_file_z090.dat'
-    my_data_sdss   = '/home/mldantas/Dropbox/DoutoradoIAG/Challenge/table_sdss_galaxies.dat'
-    sdss_redshifts = '/home/mldantas/Dropbox/DoutoradoIAG/Challenge/redshifts.dat'
+    my_data_z021        = np.loadtxt('/home/mldantas/Dropbox/DoutoradoIAG/Challenge/total_file_z021.csv', delimiter=',',
+                                     dtype=str)[1:,:]
+    my_data_z050        = '/home/mldantas/Dropbox/DoutoradoIAG/Challenge/total_file_z050.csv'
+    my_data_z090        = '/home/mldantas/Dropbox/DoutoradoIAG/Challenge/total_file_z090.csv'
+    jpas_filters_header = np.loadtxt('/home/mldantas/Dropbox/DoutoradoIAG/Challenge/jpas_filters_header.txt', dtype=str)
+    jpas_filters_header = jpas_filters_header.T
+    jpas_errors_header  = np.loadtxt('/home/mldantas/Dropbox/DoutoradoIAG/Challenge/jpas_filterserrors_header.txt',
+                                     dtype=str)
+    jpas_errors_header = jpas_errors_header.T
+    # my_data_sdss   = '/home/mldantas/Dropbox/DoutoradoIAG/Challenge/table_sdss_galaxies.dat'
+    # sdss_redshifts = '/home/mldantas/Dropbox/DoutoradoIAG/Challenge/redshifts.dat'
 
-    galaxies_z021 = np.fromfile(my_data_z021, count=-1, dtype=float)
-    galaxies_z050 = np.fromfile(my_data_z050, count=-1, dtype=float)
-    galaxies_z090 = np.fromfile(my_data_z090, count=-1, dtype=float)
+    dictionary_z021 = {}
+    for i in range(len(my_data_z021[0, :])):                                   # Converting numpy array into dictionary
+        dictionary_z021[my_data_z021[0, i]] = np.array(my_data_z021[0 + 1:, i], dtype=str)
 
-    with open(my_data_z021) as f:
-        galaxies_z021 = f.readlines()
-        galaxies_z021 = [x.strip() for x in galaxies_z021]
-        # you may also want to remove whitespace characters like `\n` at the end of each line
+    filter_info  = my_data_z021[0::2]
+    filter_error = my_data_z021[1::2]
 
-    with open(my_data_z050) as f:
-        galaxies_z050 = f.readlines()
-        galaxies_z050 = [x.strip() for x in galaxies_z050]
-        # you may also want to remove whitespace characters like `\n` at the end of each line
+    new_header = []
+    for header in range(jpas_filters_header.size):
+        new_header.append(jpas_errors_header[header])
+        new_header.append(jpas_filters_header[header])
+    new_header.append(jpas_errors_header[-1])
+    new_header = np.array(new_header)
 
-    with open(my_data_z090) as f:
-        galaxies_z090 = f.readlines()
-        galaxies_z090 = [x.strip() for x in galaxies_z090]
-        # you may also want to remove whitespace characters like `\n` at the end of each line
+    galaxies_z021 = []
+    # galaxies_z021.append(list(new_header))
+    for i in range(filter_info[:,0].size):
+        galaxies_z021.append(i+1)
+        for j in range(filter_info[0,:].size):
+            galaxies_z021.append(filter_info[i][j])
+            galaxies_z021.append(filter_error[i][j])
+    galaxies_z021 = np.array(galaxies_z021).reshape((filter_info[:, 0].size, filter_info[0, :].size * 2 + 1))
 
 
-
-    # print galaxies_z021[0:65]
-    #
-    #
-    # exit()
+    np.savetxt('/home/mldantas/Dropbox/DoutoradoIAG/Challenge/photocat_challenge_z021.csv', galaxies_z021,
+               delimiter=',', newline='\n')
