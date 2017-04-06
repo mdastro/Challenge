@@ -1,10 +1,10 @@
 # Challenge
 My personal repo with stuff for the J-PAS SED fitting challenge.
 
-## Codes
+### Codes
 My codes are in the file `Coding`.
 
-## Photometric Catalogue
+### Photometric Catalogue
 The photometric catalogue (i.e. dataset) is in the folder `PhotoCatalogs` and follow the following logic:
 
 All the dataset for a certain redshift is in files like this: `photocat_challenge_z021.csv`	(ending with `.csv` or `.fits`, I saved in both formats).
