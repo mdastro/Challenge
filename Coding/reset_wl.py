@@ -3,9 +3,10 @@
 
 """
     This program redoes the WL of the E-MILES models. The spacing is now 0.9A
+    Small mistakes corrected.
     @author:  Maria Luiza L. Dantas
-    @date:    2017.04.25
-    @version: 0.0.1
+    @date:    2017.04.28
+    @version: 0.0.2
 """
 
 import numpy as np
@@ -38,36 +39,36 @@ if __name__ == '__main__':
         new_wavelength = []
         for w in range(wavelength.size):
             if w == 0:
-                new_wavelength_i = round(wavelength[w], 2)
+                new_wavelength_i = round(wavelength[w], 1)
             elif w > 0:
                 previous_wavelength = wavelength[w-1]
-                new_wavelength_temp = round(wavelength[w], 2)
-                if new_wavelength_temp == round(previous_wavelength+0.9, 2):
+                new_wavelength_temp = round(wavelength[w], 1)
+                if new_wavelength_temp == round(previous_wavelength+0.9, 1):
                     new_wavelength_i = new_wavelength_temp
                 else:
-                    new_wavelength_i = round(previous_wavelength+0.9, 2)
+                    new_wavelength_i = round(previous_wavelength+0.9, 1)
                     print 'WL was corrected'
             new_wavelength.append(new_wavelength_i)
-            with open(current_model_out, "w") as file_out:
-                with open(current_model_in, "r") as in_file:
-                    i = 0
-                    for line in in_file:
-                        new_line = ''
-                        new_line = line.replace(wavelength[w], '') + all_the_rest[w]
-                        i+=1
-                        file_out.write(new_line)
+            # with open(current_model_out, "w") as file_out:
+            #     with open(current_model_in, "r") as in_file:
+            #         i = 0
+            #         for line in in_file:
+            #             new_line = ''
+            #             new_line = line.replace(wavelength[w], '') + all_the_rest[w]
+            #             i+=1
+            #             file_out.write(new_line)
 
-        #
-        #
-        #     for wl, line in zip(new_wavelength, file_out):
-        #         fixed_cols = line.split()
-        #         print "{}\t{}\t".format(new_wavelength,)
-        #
-        # new_wavelength = np.array(new_wavelength)
-        # new_model = np.column_stack((new_wavelength, all_the_rest))
-        # new_model_df = pd.DataFrame(new_model)
-        # new_model_df.to_csv(os.path.join(emiles_models_path, os.path.splitext(each_model)[0:4][0]+'.csv'), sep=',',
-        #                      header=header, index=False)
+
+
+            # for wl, line in zip(new_wavelength, file_out):
+            #     fixed_cols = line.split()
+            #     print "{}\t{}\t".format(new_wavelength,)
+
+        new_wavelength = np.array(new_wavelength)
+        new_model = np.column_stack((new_wavelength, all_the_rest))
+        new_model_df = pd.DataFrame(new_model)
+        new_model_df.to_csv(os.path.join(emiles_models_path, os.path.splitext(each_model)[0:4][0]+'.csv'), sep=',',
+                             header=header, index=False)
 
 __author_ = 'Maria Luiza Linhares Dantas'
 
