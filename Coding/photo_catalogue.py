@@ -32,6 +32,7 @@ if __name__ == '__main__':
     my_data_sdss        = np.loadtxt('/home/mldantas/Dropbox/DoutoradoIAG/Challenge/PhotoCats/'
                                      'table_sdss_galaxies_fnu.csv', delimiter=',', dtype=str)
     sdss_redshifts      = np.loadtxt('/home/mldantas/Dropbox/DoutoradoIAG/Challenge/redshifts.txt', dtype=str)[:,1]
+
     sdss_filters_header = np.loadtxt('/home/mldantas/Dropbox/DoutoradoIAG/Challenge/jpas_filters_header.txt', dtype=str)
 
     results_path = '/home/mldantas/Dropbox/DoutoradoIAG/Challenge/PhotoCats/fnu'
@@ -118,16 +119,16 @@ if __name__ == '__main__':
                               galaxies_all_reshifts[:, 115:117], galaxies_all_reshifts[:, 111:115],
                               galaxies_all_reshifts[:, 143:]))
     cat_jpas_sdss = np.hstack((galaxies_sdss_new[:, :111], galaxies_sdss_new[:, 115:117], galaxies_sdss_new[:, 111:115],
-                               galaxies_sdss_new[:, 132:]))
+                               galaxies_sdss_new[:, 131:]))
 
     ## JPLUS -----------------------------------------------------------------------------------------------------------
 
-    cat_jplus_all = np.hstack((galaxies_all_reshifts[:,0:1], galaxies_all_reshifts[:,117:131],
-                                galaxies_all_reshifts[:,137:139], galaxies_all_reshifts[:,131:133],
-                                galaxies_all_reshifts[:,135:137], galaxies_all_reshifts[:,133:135],
-                               galaxies_all_reshifts[:,139:141], galaxies_all_reshifts[:,143:]))
+    cat_jplus_all = np.hstack((galaxies_all_reshifts[:, 0:1], galaxies_all_reshifts[:, 117:131],
+                                galaxies_all_reshifts[:, 137:139], galaxies_all_reshifts[:, 131:133],
+                                galaxies_all_reshifts[:, 135:137], galaxies_all_reshifts[:, 133:135],
+                               galaxies_all_reshifts[:, 139:141], galaxies_all_reshifts[:, 143:]))
 
-    cat_jplus_sdss = np.hstack((galaxies_sdss_new[:,0:1], galaxies_sdss_new[:,117:]))
+    cat_jplus_sdss = np.hstack((galaxies_sdss_new[:, 0:1], galaxies_sdss_new[:, 117:]))
 
     # Tranforming into data frames and saving into csv and fits files --------------------------------------------------
     ## fits version ----------------------------------------------------------------------------------------------------
