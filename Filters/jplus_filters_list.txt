@@ -1,0 +1,12 @@
+gSDSS_2cols.txt
+iSDSS_2cols.txt
+J0378_2cols.txt
+J0395_2cols.txt
+J0410_2cols.txt
+J0430_2cols.txt
+J0515_2cols.txt
+J0660_2cols.txt
+#J0861_2cols.txt
+rSDSS_2cols.txt
+uJAVA_2cols.txt
+zSDSS_2cols.txt
