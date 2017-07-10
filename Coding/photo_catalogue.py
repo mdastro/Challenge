@@ -32,7 +32,6 @@ if __name__ == '__main__':
     my_data_sdss        = np.loadtxt('/home/mldantas/Dropbox/DoutoradoIAG/Challenge/PhotoCats/'
                                      'table_sdss_galaxies_fnu.csv', delimiter=',', dtype=str)
     sdss_redshifts      = np.loadtxt('/home/mldantas/Dropbox/DoutoradoIAG/Challenge/redshifts.txt', dtype=str)[:,1]
-
     sdss_filters_header = np.loadtxt('/home/mldantas/Dropbox/DoutoradoIAG/Challenge/jpas_filters_header.txt', dtype=str)
 
     results_path = '/home/mldantas/Dropbox/DoutoradoIAG/Challenge/PhotoCats/fnu'
@@ -152,7 +151,7 @@ if __name__ == '__main__':
     ## csv version -----------------------------------------------------------------------------------------------------
     cat_jpas_all   = pd.DataFrame(cat_jpas_all)
     cat_jpas_sdss  = pd.DataFrame(cat_jpas_sdss)
-    cat_jplus_all  = pd.DataFrame(cat_jpas_all)
+    cat_jplus_all  = pd.DataFrame(cat_jplus_all)
     cat_jplus_sdss = pd.DataFrame(cat_jplus_sdss)
     cat_jpas_all.to_csv(os.path.join(results_path, 'photocat_allredshifts_JPAS_fnu.csv'), sep=',', header=None,
                         index=False)
